@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="addTableRow()">Add new row</button>
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <template id="table_row">
+      <tr>
+        <td>Name: {name}</td>
+        <td></td>
+        <td><button>Test button</button></td>
+      </tr>
+    </template>
+  </body>
+
+  <script>
+    fetch("./test.json")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    function addTableRow() {
+      const template = document.querySelector("#table_row");
+      const newRow = template.content.cloneNode(true);
+
+      const cells = newRow.querySelectorAll("td");
+      cells[0].textContent = cells[0].textContent.replace("{name}", "Viktor");
+      cells[1].textContent = "911";
+
+      document.querySelector("tbody").append(newRow);
+    }
+  </script>
+  <style>
+    th,
+    td {
+      padding: 0.6em;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #eeeeee;
+    }
+
+    table {
+      table-layout: fixed;
+      width: 90%;
+      margin: 10px auto;
+      border-collapse: collapse;
+      border-top: 1px solid #999999;
+      border-bottom: 1px solid #999999;
+    }
+  </style>
+</html>
